@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package analytics;
+
+// 状态
+message Status {
+  int32 code = 1;     // 状态码
+  string message = 2; // 状态信息
+}
+
+// 空白回复
+message BlankResponse {
+  Status status = 1; // 状态
+}
+
+message Agent {
+  string serialNumber = 1;    // 序列号
+  string softwareFamily = 2;  // 软件家族
+  string softwareVersion = 3; // 软件版本
+  string systemFamily = 4;    // 系统家族
+  string systemVersion = 5;   // 系统版本
+  string deviceModel = 6;     // 设备模型
+  string deviceType = 7;      // 设备类型
+}

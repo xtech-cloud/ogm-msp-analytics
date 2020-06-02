@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "proto/analytics/shared.proto";
+
+package analytics;
+
+// 记录
+service Record {
+  // 活动
+  rpc Wake(Agent) returns (BlankResponse) {}
+}
