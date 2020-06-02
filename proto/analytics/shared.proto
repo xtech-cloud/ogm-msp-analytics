@@ -21,4 +21,5 @@ message Agent {
   string systemVersion = 5;   // 系统版本
   string deviceModel = 6;     // 设备模型
   string deviceType = 7;      // 设备类型
+  string profile = 8;         // 简要资料
 }
