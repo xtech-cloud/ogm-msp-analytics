@@ -108,6 +108,7 @@ func (m *BlankResponse) GetStatus() *Status {
 	return nil
 }
 
+// 个体
 type Agent struct {
 	SerialNumber         string   `protobuf:"bytes,1,opt,name=serialNumber,proto3" json:"serialNumber,omitempty"`
 	SoftwareFamily       string   `protobuf:"bytes,2,opt,name=softwareFamily,proto3" json:"softwareFamily,omitempty"`

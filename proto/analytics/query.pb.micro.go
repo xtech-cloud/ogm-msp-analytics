@@ -34,7 +34,7 @@ var _ server.Option
 // Client API for Query service
 
 type QueryService interface {
-	// 活动
+	// 个体
 	Agent(ctx context.Context, in *QueryAgentRequest, opts ...client.CallOption) (*QueryAgentResponse, error)
 }
 
@@ -63,7 +63,7 @@ func (c *queryService) Agent(ctx context.Context, in *QueryAgentRequest, opts ..
 // Server API for Query service
 
 type QueryHandler interface {
-	// 活动
+	// 个体
 	Agent(context.Context, *QueryAgentRequest, *QueryAgentResponse) error
 }
 

@@ -5,20 +5,23 @@ import "proto/analytics/shared.proto";
 package analytics;
 
 // 查询
-service Query {
-  // 活动
-  rpc Agent(QueryAgentRequest) returns (QueryAgentResponse) {}
+service Query
+{
+    // 个体
+    rpc Agent(QueryAgentRequest) returns (QueryAgentResponse) { }
 }
 
 // 查询个体的请求
-message QueryAgentRequest {
-  int64 offset = 1; // 偏移量
-  int64 count = 2;  // 数量
+message QueryAgentRequest
+{
+    int64 offset = 1; // 偏移量
+    int64 count = 2;  // 数量
 }
 
 // 查询个体的回复
-message QueryAgentResponse {
-  Status status = 1;        // 状态
-  int64 total = 2;          // 总数
-  repeated Agent agent = 3; // 个体列表
+message QueryAgentResponse
+{
+    Status status = 1;        // 状态
+    int64 total = 2;          // 总数
+    repeated Agent agent = 3; // 个体列表
 }
