@@ -34,8 +34,10 @@ var _ server.Option
 // Client API for Record service
 
 type RecordService interface {
-	// 活动
+	// 活跃
 	Wake(ctx context.Context, in *Agent, opts ...client.CallOption) (*BlankResponse, error)
+	// 活动
+	Activity(ctx context.Context, in *RecordActivityRequest, opts ...client.CallOption) (*BlankResponse, error)
 }
 
 type recordService struct {
@@ -60,16 +62,29 @@ func (c *recordService) Wake(ctx context.Context, in *Agent, opts ...client.Call
 	return out, nil
 }
 
+func (c *recordService) Activity(ctx context.Context, in *RecordActivityRequest, opts ...client.CallOption) (*BlankResponse, error) {
+	req := c.c.NewRequest(c.name, "Record.Activity", in)
+	out := new(BlankResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Record service
 
 type RecordHandler interface {
-	// 活动
+	// 活跃
 	Wake(context.Context, *Agent, *BlankResponse) error
+	// 活动
+	Activity(context.Context, *RecordActivityRequest, *BlankResponse) error
 }
 
 func RegisterRecordHandler(s server.Server, hdlr RecordHandler, opts ...server.HandlerOption) error {
 	type record interface {
 		Wake(ctx context.Context, in *Agent, out *BlankResponse) error
+		Activity(ctx context.Context, in *RecordActivityRequest, out *BlankResponse) error
 	}
 	type Record struct {
 		record
@@ -84,4 +99,8 @@ type recordHandler struct {
 
 func (h *recordHandler) Wake(ctx context.Context, in *Agent, out *BlankResponse) error {
 	return h.RecordHandler.Wake(ctx, in, out)
+}
+
+func (h *recordHandler) Activity(ctx context.Context, in *RecordActivityRequest, out *BlankResponse) error {
+	return h.RecordHandler.Activity(ctx, in, out)
 }

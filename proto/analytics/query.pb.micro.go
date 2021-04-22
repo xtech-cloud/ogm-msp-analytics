@@ -36,6 +36,8 @@ var _ server.Option
 type QueryService interface {
 	// 个体
 	Agent(ctx context.Context, in *QueryAgentRequest, opts ...client.CallOption) (*QueryAgentResponse, error)
+	// 事件
+	Event(ctx context.Context, in *QueryEventRequest, opts ...client.CallOption) (*BlankResponse, error)
 }
 
 type queryService struct {
@@ -60,16 +62,29 @@ func (c *queryService) Agent(ctx context.Context, in *QueryAgentRequest, opts ..
 	return out, nil
 }
 
+func (c *queryService) Event(ctx context.Context, in *QueryEventRequest, opts ...client.CallOption) (*BlankResponse, error) {
+	req := c.c.NewRequest(c.name, "Query.Event", in)
+	out := new(BlankResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Query service
 
 type QueryHandler interface {
 	// 个体
 	Agent(context.Context, *QueryAgentRequest, *QueryAgentResponse) error
+	// 事件
+	Event(context.Context, *QueryEventRequest, *BlankResponse) error
 }
 
 func RegisterQueryHandler(s server.Server, hdlr QueryHandler, opts ...server.HandlerOption) error {
 	type query interface {
 		Agent(ctx context.Context, in *QueryAgentRequest, out *QueryAgentResponse) error
+		Event(ctx context.Context, in *QueryEventRequest, out *BlankResponse) error
 	}
 	type Query struct {
 		query
@@ -84,4 +99,8 @@ type queryHandler struct {
 
 func (h *queryHandler) Agent(ctx context.Context, in *QueryAgentRequest, out *QueryAgentResponse) error {
 	return h.QueryHandler.Agent(ctx, in, out)
+}
+
+func (h *queryHandler) Event(ctx context.Context, in *QueryEventRequest, out *BlankResponse) error {
+	return h.QueryHandler.Event(ctx, in, out)
 }

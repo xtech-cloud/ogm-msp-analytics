@@ -7,6 +7,18 @@ package analytics;
 // 记录
 service Record
 {
-    // 活动
+    // 活跃
     rpc Wake(Agent) returns (BlankResponse) { }
+    // 活动
+    rpc Activity(RecordActivityRequest) returns (BlankResponse) { }
+}
+
+// 记录活动的请求
+message RecordActivityRequest
+{
+    string appID = 1;                  // 应用ID
+    string deviceID = 2;               // 设备ID
+    string userID = 3;                 // 用户ID
+    string eventID = 4;                // 事件ID
+    map<string, string> parameter = 5; // 参数
 }
