@@ -37,7 +37,7 @@ type QueryService interface {
 	// 个体
 	Agent(ctx context.Context, in *QueryAgentRequest, opts ...client.CallOption) (*QueryAgentResponse, error)
 	// 事件
-	Event(ctx context.Context, in *QueryEventRequest, opts ...client.CallOption) (*BlankResponse, error)
+	Event(ctx context.Context, in *QueryEventRequest, opts ...client.CallOption) (*QueryEventResponse, error)
 }
 
 type queryService struct {
@@ -62,9 +62,9 @@ func (c *queryService) Agent(ctx context.Context, in *QueryAgentRequest, opts ..
 	return out, nil
 }
 
-func (c *queryService) Event(ctx context.Context, in *QueryEventRequest, opts ...client.CallOption) (*BlankResponse, error) {
+func (c *queryService) Event(ctx context.Context, in *QueryEventRequest, opts ...client.CallOption) (*QueryEventResponse, error) {
 	req := c.c.NewRequest(c.name, "Query.Event", in)
-	out := new(BlankResponse)
+	out := new(QueryEventResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -78,13 +78,13 @@ type QueryHandler interface {
 	// 个体
 	Agent(context.Context, *QueryAgentRequest, *QueryAgentResponse) error
 	// 事件
-	Event(context.Context, *QueryEventRequest, *BlankResponse) error
+	Event(context.Context, *QueryEventRequest, *QueryEventResponse) error
 }
 
 func RegisterQueryHandler(s server.Server, hdlr QueryHandler, opts ...server.HandlerOption) error {
 	type query interface {
 		Agent(ctx context.Context, in *QueryAgentRequest, out *QueryAgentResponse) error
-		Event(ctx context.Context, in *QueryEventRequest, out *BlankResponse) error
+		Event(ctx context.Context, in *QueryEventRequest, out *QueryEventResponse) error
 	}
 	type Query struct {
 		query
@@ -101,6 +101,6 @@ func (h *queryHandler) Agent(ctx context.Context, in *QueryAgentRequest, out *Qu
 	return h.QueryHandler.Agent(ctx, in, out)
 }
 
-func (h *queryHandler) Event(ctx context.Context, in *QueryEventRequest, out *BlankResponse) error {
+func (h *queryHandler) Event(ctx context.Context, in *QueryEventRequest, out *QueryEventResponse) error {
 	return h.QueryHandler.Event(ctx, in, out)
 }
