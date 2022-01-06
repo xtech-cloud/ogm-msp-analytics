@@ -2,7 +2,8 @@ syntax = "proto3";
 
 import "proto/analytics/shared.proto";
 
-package analytics;
+//package analytics;
+option go_package = "proto/analytics;analytics";
 
 // 查询
 service Query

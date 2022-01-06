@@ -2,7 +2,8 @@ syntax = "proto3";
 
 import "proto/analytics/shared.proto";
 
-package analytics;
+//package analytics;
+option go_package = "proto/analytics;analytics";
 
 // 记录
 service Record
@@ -16,9 +17,8 @@ service Record
 // 记录活动的请求
 message RecordActivityRequest
 {
-    string appID = 1;                  // 应用ID
-    string deviceID = 2;               // 设备ID
-    string userID = 3;                 // 用户ID
-    string eventID = 4;                // 事件ID
-    map<string, string> parameter = 5; // 参数
+    string appID = 1;                 // 应用ID
+    string deviceID = 2;              // 设备ID
+    string userID = 3;                // 用户ID
+    repeated Parameter parameter = 5; // 参数
 }

@@ -1,6 +1,7 @@
 syntax = "proto3";
 
-package analytics;
+//package analytics;
+option go_package = "proto/analytics;analytics";
 
 // 健康
 service Healthy
