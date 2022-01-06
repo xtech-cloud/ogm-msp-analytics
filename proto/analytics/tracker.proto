@@ -5,17 +5,17 @@ import "proto/analytics/shared.proto";
 //package analytics;
 option go_package = "proto/analytics;analytics";
 
-// 记录
-service Record
+// 跟踪器
+service Tracker
 {
     // 活跃
     rpc Wake(Agent) returns (BlankResponse) { }
-    // 活动
-    rpc Activity(RecordActivityRequest) returns (BlankResponse) { }
+    // 记录
+    rpc Record(TrackerRecordRequest) returns (BlankResponse) { }
 }
 
-// 记录活动的请求
-message RecordActivityRequest
+// 跟踪记录的请求
+message TrackerRecordRequest
 {
     string appID = 1;     // 应用ID
     string deviceID = 2;  // 设备ID
