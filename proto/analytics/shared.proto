@@ -28,19 +28,3 @@ message Agent
     string deviceType = 7;      // 设备类型
     string profile = 8;         // 简要资料
 }
-
-// 参数
-message Parameter
-{
-    string key = 1;   // 键
-    string value = 2; // 值
-    string type = 3;  // 类型
-}
-
-// 事件
-message Event
-{
-    string id = 1;                    // 事件唯一ID
-    string alias = 2;                 // 事件显示名
-    repeated Parameter parameter = 3; // 事件参数
-}
