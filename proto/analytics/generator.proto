@@ -32,17 +32,16 @@ message GeneratorAgentResponse
 // 生成记录报表的请求
 message GeneratorRecordRequest
 {
-    int64 offset = 1;       // 偏移量
-    int64 count = 2;        // 数量
-    int64 startTime = 3;    // 开始时间
-    int64 endTime = 4;      // 结束时间
-    string appID = 5;       // 应用ID
-    string deviceID = 6;    // 设备ID
-    string userID = 7;      // 用户ID
-    string eventID = 8;     // 事件ID
-    string eventKey = 9;    // 事件键
-    string eventValue = 10; // 事件值
-    string template = 11;   // 报表模板
+    int64 offset = 1;          // 偏移量
+    int64 count = 2;           // 数量
+    int64 startTime = 3;       // 开始时间
+    int64 endTime = 4;         // 结束时间
+    string appID = 5;          // 应用ID
+    string deviceID = 6;       // 设备ID
+    string userID = 7;         // 用户ID
+    string eventID = 8;        // 事件ID
+    string eventParameter = 9; // 事件参数
+    string template = 11;      // 报表模板
 }
 
 // 生成记录报表的回复
